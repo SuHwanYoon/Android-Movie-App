@@ -1,4 +1,4 @@
-package com.example.jetmovie.ui.theme
+package com.yoon.movieapp.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

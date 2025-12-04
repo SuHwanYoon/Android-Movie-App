@@ -1,4 +1,4 @@
-package com.example.jetmovie.ui.theme
+package com.yoon.movieapp.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

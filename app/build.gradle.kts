@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.jetmovie"
+    namespace = "com.yoon.movieapp"
     compileSdk = 34
 
     defaultConfig {

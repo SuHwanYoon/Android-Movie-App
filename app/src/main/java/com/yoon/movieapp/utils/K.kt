@@ -1,4 +1,4 @@
-package com.example.jetmovie.utils
+package com.yoon.movieapp.utils
 
 object K {
     const val BASE_URL = "https://api.themoviedb.org/3/"

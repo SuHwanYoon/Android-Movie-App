@@ -1,4 +1,4 @@
-package com.example.jetmovie.utils
+package com.yoon.movieapp.utils
 
 object GenreConstants {
     private val genreMap = mapOf(
