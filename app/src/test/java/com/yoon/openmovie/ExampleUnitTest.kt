@@ -1,4 +1,4 @@
-package com.example.jetmovie
+package com.yoon.openmovie
 
 import org.junit.Test
 
