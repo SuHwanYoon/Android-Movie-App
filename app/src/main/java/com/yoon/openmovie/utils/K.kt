@@ -1,4 +1,4 @@
-package com.yoon.movieapp.utils
+package com.yoon.openmovie.utils
 
 object K {
     const val BASE_URL = "https://api.themoviedb.org/3/"

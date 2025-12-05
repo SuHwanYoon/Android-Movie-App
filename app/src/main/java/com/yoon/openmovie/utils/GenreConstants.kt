@@ -1,4 +1,4 @@
-package com.yoon.movieapp.utils
+package com.yoon.openmovie.utils
 
 object GenreConstants {
     private val genreMap = mapOf(

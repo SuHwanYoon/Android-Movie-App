@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "com.yoon.movieapp"
+    namespace = "com.yoon.openmovie"
     compileSdk = 34
 
     defaultConfig {

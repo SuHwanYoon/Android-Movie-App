@@ -1,4 +1,4 @@
-package com.yoon.movieapp.ui.theme
+package com.yoon.openmovie.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

@@ -1,4 +1,4 @@
-package com.yoon.movieapp.ui.theme
+package com.yoon.openmovie.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
