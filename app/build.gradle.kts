@@ -53,6 +53,18 @@ android {
     }
 }
 
+// =======================================================
+// 아래 java 블록을 여기에 추가하세요.
+// 이 설정은 Gradle이 빌드 시 JDK 17을 사용하도록 강제합니다.
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+// =======================================================
+
+
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
