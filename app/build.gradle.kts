@@ -41,8 +41,14 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    // buildFeatures 블록은 Android 프로젝트에서 특정 빌드 기능을 활성화하거나 비활성화하는 데 사용됩니다.
+    // buildConfig = true 설정은 BuildConfig 클래스를 생성하도록 지정합니다.
+    // BuildConfig 클래스는 빌드 시점에 생성되며,
+    // 애플리케이션의 빌드 구성을 나타내는 상수들을 포함합니다.
+    // BuildConfig 클래스를 생성하는 이유는 애플리케이션 코드에서 빌드 구성 정보를 쉽게 참조할 수 있도록 하기 위함입니다.
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.15"

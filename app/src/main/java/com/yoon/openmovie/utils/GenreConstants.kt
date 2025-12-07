@@ -2,6 +2,9 @@ package com.yoon.openmovie.utils
 
 // 영화 장르 ID와 해당 이름을 매핑하는 genreMap을 포함하며,
 // ID를 통해 장르 이름을 조회하는 함수를 제공하여 사용자에게 이해하기 쉬운 장르 정보를 표시하는 데 사용됩니다.
+// mapOf는 불변 맵을 생성합니다.
+// 28 to "Action"는 키-값 쌍을 나타내며, 28이라는 키에 "Action"이라는 값을 매핑합니다.
+// to는 Kotlin에서 키-값 쌍을 생성하는 데 사용되는 연산자입니다.
 object GenreConstants {
     private val genreMap = mapOf(
         28 to "Action",
