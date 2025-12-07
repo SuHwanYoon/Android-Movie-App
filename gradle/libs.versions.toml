@@ -28,37 +28,68 @@ coreSplashscreen = "1.0.1"
 
 
 [libraries]
+# Android KTX (Kotlin Extensions) 라이브러리: 공통 Android API를 위한 확장 기능을 제공합니다.
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+# JUnit: 단위 테스트 프레임워크입니다.
 junit = { group = "junit", name = "junit", version.ref = "junit" }
+# AndroidX JUnit: Android 특정 단위 테스트를 위한 JUnit 확장입니다.
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+# Espresso Core: Android UI 테스트 프레임워크의 핵심 구성 요소입니다.
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+# Lifecycle Runtime KTX: 코루틴을 지원하는 Android 생명주기 관련 유틸리티입니다.
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+# Activity Compose: Jetpack Compose와 Activity 통합을 위한 라이브러리입니다.
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+# Compose BOM (Bill of Materials): 모든 Compose 라이브러리 버전을 일관되게 관리합니다.
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+# Compose UI: Jetpack Compose UI 툴킷의 기본 구성 요소입니다.
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+# Compose UI Graphics: Jetpack Compose를 위한 그래픽 관련 유틸리티입니다.
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+# Compose UI Tooling: Jetpack Compose UI 요소를 미리 보고 상호 작용하는 도구입니다.
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+# Compose UI Tooling Preview: Jetpack Compose UI 미리보기 기능을 제공합니다.
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+# Compose UI Test Manifest: Jetpack Compose UI 테스트를 위한 매니페스트 지원입니다.
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+# Compose UI Test JUnit4: Jetpack Compose UI 테스트를 위한 JUnit4 러너입니다.
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+# Material Design 3: Jetpack Compose를 위한 Material Design 3 구성 요소입니다.
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 
+# KotlinX Serialization JSON: Kotlin 객체를 JSON으로 직렬화/역직렬화하는 라이브러리입니다.
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+# Logging Interceptor: OkHttp 요청 및 응답 로깅을 위한 인터셉터입니다.
 logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptor" }
+# OkHttp: 효율적인 HTTP 클라이언트입니다.
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+# Retrofit: 타입-세이프 HTTP 클라이언트입니다.
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+# Retrofit2 KotlinX Serialization Converter: Retrofit에서 KotlinX Serialization을 사용하여 JSON을 처리합니다.
 retrofit2-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2KotlinxSerializationConverter" }
+# Core Splashscreen: Android 앱의 시작 화면 (스플래시 스크린)을 구현하는 라이브러리입니다.
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
+# Hilt Navigation Compose: Hilt와 Jetpack Compose Navigation 통합을 위한 라이브러리입니다.
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+# Lifecycle Runtime Compose: Compose 환경에서 생명주기 인식을 위한 유틸리티입니다.
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeCompose" }
+# Lifecycle ViewModel Compose: Compose 환경에서 ViewModel을 사용하기 위한 유틸리티입니다.
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
+# Material Icons Extended: 확장된 Material Design 아이콘 세트입니다.
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
+# Navigation Compose: Jetpack Compose에서 내비게이션을 관리하는 라이브러리입니다.
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+# Hilt Android: Android 앱을 위한 Dagger Hilt 의존성 주입 프레임워크입니다.
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
+# Hilt Android Compiler: Hilt 의존성 주입을 위한 컴파일러입니다.
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
+# Coil Compose: Jetpack Compose에서 이미지를 로드하고 표시하는 라이브러리입니다.
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+# AndroidX UI Util: Jetpack Compose UI 유틸리티입니다.
 androidx-ui-util = { module = "androidx.compose.ui:ui-util" }
 
 [plugins]
+# Android Application Plugin: Android 애플리케이션을 빌드하기 위한 Gradle 플러그인입니다.
 android-application = { id = "com.android.application", version.ref = "agp" }
+# Jetbrains Kotlin Android Plugin: Kotlin Android 프로젝트를 빌드하기 위한 Gradle 플러그인입니다.
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
