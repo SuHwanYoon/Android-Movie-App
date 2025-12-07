@@ -29,6 +29,7 @@ coreSplashscreen = "1.0.1"
 
 [libraries]
 # Android KTX (Kotlin Extensions) 라이브러리: 공통 Android API를 위한 확장 기능을 제공합니다.
+# 확장기능에는 컬렉션 처리, 파일 입출력, 리소스 관리 등이 포함됩니다.
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 # JUnit: 단위 테스트 프레임워크입니다.
 junit = { group = "junit", name = "junit", version.ref = "junit" }

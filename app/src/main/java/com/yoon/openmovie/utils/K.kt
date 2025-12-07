@@ -1,5 +1,6 @@
 package com.yoon.openmovie.utils
-
+// TMDb (The Movie Database) API의 기본 URL, 이미지 URL,
+// 다양한 API 엔드포인트와 같은 상수들을 중앙에서 관리하여 API 설정의 접근성과 수정 용이성을 높입니다.
 object K {
     const val BASE_URL = "https://api.themoviedb.org/3/"
     const val BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500/"

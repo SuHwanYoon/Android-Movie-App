@@ -11,7 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-
+//Color.kt와 Type.kt에 정의된 색상 및 타이포그래피를 사용하여 전체 MaterialTheme를 구성하고,
+// 시스템 설정에 따른 다크/라이트 모드 및 Android 12 이상에서의 동적 색상 기능을 처리합니다.
 private val lightScheme = lightColorScheme(
     primary = primaryLight,
     onPrimary = onPrimaryLight,

@@ -1,4 +1,5 @@
 plugins {
+    // plugins block에 선언하는 것들의 역할은 해당 Gradle 스크립트에서 사용할 플러그인들을 지정하는 것입니다.
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlinx-serialization")

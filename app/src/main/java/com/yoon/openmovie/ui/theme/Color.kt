@@ -1,7 +1,7 @@
 package com.yoon.openmovie.ui.theme
 
 import androidx.compose.ui.graphics.Color
-
+//애플리케이션에서 사용되는 다양한 색상 팔레트 (밝은 테마, 어두운 테마, 고대비 등)를 정의하여 일관된 디자인을 유지합니다.
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)
 val Pink80 = Color(0xFFEFB8C8)

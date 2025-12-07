@@ -7,6 +7,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 // Set of Material typography styles to start with
+//애플리케이션의 텍스트 스타일 (폰트, 크기, 두께)을 정의하여 일관된 텍스트 표현을 제공합니다.
 val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = FontFamily.Default,
