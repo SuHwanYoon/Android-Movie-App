@@ -28,6 +28,9 @@ object GenreConstants {
         37 to "Western"
     )
 
+    // getGenreNameById 함수는 장르 ID를 key로 입력받아
+    // 해당하는 장르 이름 문자열 vlaue을 반환합니다.
+    // 만약 ID가 genreMap에 존재하지 않으면 "Unknown"을 반환합니다
     fun getGenreNameById(id: Int): String {
         return genreMap[id] ?: "Unknown"
     }

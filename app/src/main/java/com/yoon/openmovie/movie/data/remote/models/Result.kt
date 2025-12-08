@@ -4,11 +4,13 @@ package com.yoon.openmovie.movie.data.remote.models
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-// Result 데이터 전송 객체는 개별 영화의 세부 정보를 나타냅니다.
+
+// Result는 MovieDto의 프로퍼티중 하나인 results의 각 항목을 나타냅니다.
 // 성인 영화 여부, 배경 이미지 경로, 장르 ID 목록, 영화 ID,
 // 원래 언어 및 제목, 개요, 인기 지수, 포스터 이미지 경로,
 // 출시 날짜, 제목, 비디오 여부, 평균 평점 및 투표 수를 포함합니다.
 // 각 속성은 JSON 키와 매핑되며, null 가능성을 처리합니다.
+// @SerialName의 value속성은 JSON 키 이름을 지정합니다.
 @Serializable
 data class Result(
     @SerialName("adult")
