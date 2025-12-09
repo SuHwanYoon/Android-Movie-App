@@ -12,7 +12,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.yoon.openmovie.ui.theme.JetMovieTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+// @AndroidEntryPoint 어노테이션은 Hilt를 사용하여
+// MainActivity에서 의존성 주입을 가능하게 합니다.
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
