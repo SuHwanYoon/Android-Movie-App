@@ -35,11 +35,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     // buildFeatures 블록은 Android 프로젝트에서 특정 빌드 기능을 활성화하거나 비활성화하는 데 사용됩니다.
     // buildConfig = true 설정은 BuildConfig 클래스를 생성하도록 지정합니다.
