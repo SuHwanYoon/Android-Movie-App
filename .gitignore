@@ -42,9 +42,6 @@ local.properties
 *.jks
 *.keystore
 
-# External native build folder
-.externalNativeBuild/
-
 # Instant Run
 .instantrun/
 
@@ -54,3 +51,4 @@ local.properties
 # Gemini related
 GEMINI.md
 CLAUDE.md
+AGENTS.md
