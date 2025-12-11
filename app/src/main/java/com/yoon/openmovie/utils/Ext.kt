@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.Flow
 // Flow<Response<T>> 타입에 대한 사용자 정의 확장 함수 collectAndHandler를 선언합니다.
 suspend fun <T> Flow<Response<T>>.collectAndHandler(
     // onError 파라미터는 오류가 발생했을 때 호출되는 람다 함수입니다.
+    // Log.e의 태그는 "collectAndHandler"이고,
+    // 메시지는 "collectAndHandler: error"이며, 발생한 오류를 함께 로깅합니다.
     onError: (Throwable?)
     -> Unit = { Log.e("collectAndHandler", "collectAndHandler: error", it) },
 
@@ -18,6 +20,9 @@ suspend fun <T> Flow<Response<T>>.collectAndHandler(
     onLoading: () -> Unit = { /* Default no-op */ },
 
     //stateReducer 파라미터는 성공 상태일 때 호출되는 람다 함수입니다.
+    //이 함수는 기본값이 없기때문에 반드시 호출 시 전달해야 합니다.
+    //호출시 반드시 로직을 처리해야하는 부분은 기본값을 정의하지 않는 방식으로 강제성 부여가능
+    //이 파라미터는 함수의 마지막 람다 인자이기때문에 호출시 중괄호 밖에서 전달할 수 있습니다.
     stateReducer: (T) -> Unit,
 ) {
     // collect는 FLow 인터페이스가 가지고 있는 abstract 함수로,

@@ -15,7 +15,7 @@ interface MovieApiService {
         // @Query 어노테이션은 함수 매개변수를 쿼리 매개변수로 매핑하는 데 사용됩니다.
         // BuildConfig.apiKey는 빌드 구성에서 API 키를 가져옵니다.
         // URL에 포함될 쿼리 매개변수의 이름은 "api_key"입니다.
-        // api_key = apikeyvalue 형식으로 요청 URL에 추가됩니다.
+        // api_key = apikey value 형식으로 요청 URL에 추가됩니다.
         @Query("api_key") apiKey: String = BuildConfig.apiKey,
         @Query("include_adult") includeAdult: Boolean = false,
     ): MovieDto

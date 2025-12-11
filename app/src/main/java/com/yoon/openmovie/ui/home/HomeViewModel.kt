@@ -13,17 +13,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 // ViewModel을 상속하면 안드로이드 아키텍처 컴포넌트의
-// ViewModel 기능을 사용할 수 있으며 기능으로는
-// 화면 회전 등의 구성 변경 시에도 데이터 유지,
-// UI state를 관찰하며 자동으로 화면갱신
-// 코루틴 사용해 API 요청수행 -> 결과만 UI에 전달
-// DI구성가능
+// ViewModel 기능을 사용할 수 있으며 기능으로는 화면 회전 등의 구성 변경 시에도 데이터 유지,
+// UI state를 관찰하며 자동으로 화면갱신 ,코루틴 사용해 API 요청수행 -> 결과만 UI에 전달
+// DI구성가능이 있다
+
 // @Inject 생성자는 constructor내부에 선언한 의존성을
-// ViewModel의 인스턴스를 생성할 때 내부에 명시하지 않아도
-// Hilt가 자동으로 주입해줌
-// constructor() 는 기본 생성자를 정의하며,
-// 필요한 의존성을 매개변수로 받을 수 있습니다.
-// ViewModel은 구현체가 아닌 Interface 타입으로 의존성을 주입받는 것이
+// ViewModel의 인스턴스를 생성할 때 직접 내부에 명시하지 않아도 Hilt가 자동으로 주입해줌
+// constructor() 는 기본 생성자를 정의하며, 필요한 의존성을 매개변수로 받을 수 있습니다.
+// ViewModel은 구현체 Impl가 아닌 Interface 타입으로 의존성을 주입받는 것이
 // 더 좋은 설계입니다.
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -42,7 +39,7 @@ class HomeViewModel @Inject constructor(
     private  val _homeState = MutableStateFlow(HomeState())
     val homeState = _homeState.asStateFlow()
 
-    // ViewModel이 생성될 때 함수가 호출되도록 초기화선언
+    // ViewModel이 생성될 때 해당 함수가 호출되도록 초기화선언
     // 여기서는 홈화면 초기화 시
     // 발견된 영화와 인기 영화를 가져오는 작업을 수행
     init {
@@ -61,23 +58,28 @@ class HomeViewModel @Inject constructor(
     // viewModelScope는 ViewModel의 내부 전용으로 범위를 한정하고
     // 화면이 닫히거나 ViewModel이 더 이상 사용되지 않으면
     // 자동으로 취소되는 코루틴 범위를 제공하며 launch는
-    // 새로운 코루틴으로 비동기 작업수행
+    // 새로운 코루틴으로 비동기 작업을 수행한다
     private fun fetchDiscoverMovies() = viewModelScope.launch {
         // fetchDiscoverMovie() 메서드는 서버에서 영화데이터 Flow 형태로 반환합니다
-        // collectAndHandler 함수는
+        // extension함수인 collectAndHandler 함수는
         // Flow의 상태(로딩, 성공, 오류)를 처리하는 데 사용됩니다.
         repository.fetchDiscoverMovie().collectAndHandler(
+            // onError 파라미터는 오류가 발생했을 때 호출되는 람다 함수입니다.
             onError = { error ->
                 _homeState.update {
                     it.copy(isLoading = false, error = error?.localizedMessage)
                 }
             },
+            // onLoading 파라미터는 로딩 상태일 때 호출되는 람다 함수입니다.
             onLoading = {
                 _homeState.update {
                     it.copy(isLoading = true, error = null)
                 }
             }
-        ) { movie ->
+        )
+        // trailing Lambda 문법을 사용하여 () 범위 밖에서 호출
+        // stateReducer 파라미터는 성공 상태일 때 호출되는 람다 함수입니다.
+        { movie ->
             _homeState.update {
                 it.copy(isLoading = false, error = null, discoverMovies = movie)
             }
@@ -98,7 +100,8 @@ class HomeViewModel @Inject constructor(
                     it.copy(isLoading = true, error = null)
                 }
             }
-        ) { movie ->
+        )
+        { movie ->
             _homeState.update {
                 it.copy(isLoading = false, error = null, trendingMovies = movie)
             }
