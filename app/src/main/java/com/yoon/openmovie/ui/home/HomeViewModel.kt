@@ -37,6 +37,9 @@ class HomeViewModel @Inject constructor(
     // homeState는 읽기만 가능한 UI 공개용 상태 스트림
     // 이유는 UI가 상태변경을 직접 수행하지 못하게 하기 위함
     private  val _homeState = MutableStateFlow(HomeState())
+    // stateFlow는 읽기 전용 상태 흐름을 나타내며,
+    // asStateFlow() 확장 함수를 사용하여
+    // MutableStateFlow를 StateFlow로 변환합니다.
     val homeState = _homeState.asStateFlow()
 
     // ViewModel이 생성될 때 해당 함수가 호출되도록 초기화선언
@@ -119,6 +122,7 @@ class HomeViewModel @Inject constructor(
 // trendingMovies: 인기 영화 목록을 나타내는 프로퍼티입니다.
 // error: 오류 메시지를 나타내는 프로퍼티입니다.
 data class HomeState(
+    // Movie 타입의 리스트를 기본값으로 빈 리스트로 초기화
     val discoverMovies: List<Movie> = emptyList(),
     val trendingMovies: List<Movie> = emptyList(),
     val error: String? = null,
