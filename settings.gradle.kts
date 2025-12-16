@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "JetMovie"
+rootProject.name = "feelMovie"
 include(":app")
  

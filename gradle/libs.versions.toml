@@ -1,13 +1,13 @@
 [versions]
-agp = "8.5.0"
-kotlin = "1.9.25"
+agp = "8.6.0"
+kotlin = "2.0.21"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.6"
 activityCompose = "1.9.2"
-composeBom = "2024.04.01"
+composeBom = "2024.12.01"
 
 kotlinxSerializationJson = "1.6.0"
 lifecycleRuntimeCompose = "2.8.6"
@@ -24,6 +24,7 @@ hiltAndroidCompiler = "2.48"
 hiltNavigationCompose = "1.2.0"
 coilCompose = "2.5.0"
 coreSplashscreen = "1.0.1"
+ui = "1.10.0"
 
 
 
@@ -88,9 +89,12 @@ hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", ve
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 # AndroidX UI Util: Jetpack Compose UI 유틸리티입니다.
 androidx-ui-util = { module = "androidx.compose.ui:ui-util" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "ui" }
 
 [plugins]
 # Android Application Plugin: Android 애플리케이션을 빌드하기 위한 Gradle 플러그인입니다.
 android-application = { id = "com.android.application", version.ref = "agp" }
 # Jetbrains Kotlin Android Plugin: Kotlin Android 프로젝트를 빌드하기 위한 Gradle 플러그인입니다.
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+# Compose Compiler Plugin: Kotlin 2.0+에서 필요한 Compose 컴파일러 플러그인입니다.
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
