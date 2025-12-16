@@ -31,6 +31,11 @@ fun BodyContent(
 ) {
     // LazyColumn을 활용하여 스크롤 가능한 콘텐츠 표시
     // item은 item 블록 내에 각 항목의 UI 구성 요소를 정의
+    // 중요: modifier 파라미터를 반드시 사용해야 함
+    // 이전 문제: LazyColumn(modifier = Modifier)로 빈 Modifier를 사용하여
+    // HomeScreen에서 전달한 .align(Alignment.BottomCenter)와 .heightIn(max = bodyItemHeight)가
+    // 무시되었고, 이로 인해 BodyContent가 화면 하단에 제대로 배치되지 않았음
+    // 해결 방법: modifier = modifier로 변경하여 부모에서 전달한 레이아웃 제약을 적용
     LazyColumn(modifier = modifier) {
         item {
             Card(modifier = Modifier.fillMaxWidth()) {

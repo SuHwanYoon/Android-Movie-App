@@ -141,9 +141,6 @@ fun HomeScreen(
                 // pageSize는 각 페이지의 크기를 지정
                 // pageSpacing은 페이지 간의 간격을 지정
                 HorizontalPager(
-                    modifier = Modifier
-                        .align(Alignment.TopCenter)
-                        .height(topItemHeight),
                     state = pagerState,
                     contentPadding = PaddingValues(defaultPadding),
                     pageSize = PageSize.Fill,
@@ -170,7 +167,9 @@ fun HomeScreen(
                             // onMovieClick 람다 함수는 영화 항목이 클릭될 때 호출
                             index ->
                             TopContent(
-                                modifier = Modifier.fillMaxSize(),
+                                modifier = Modifier
+                                    .align(Alignment.TopCenter)
+                                    .heightIn(min = topItemHeight),
                                 movie = state.discoverMovies[index],
                                 onMovieClick = {
                                     onMovieClick(it)
@@ -183,7 +182,9 @@ fun HomeScreen(
                         // onMovieClick 람다 함수는 영화 항목이 클릭될 때 호출
                     } else {
                         TopContent(
-                            modifier = Modifier.fillMaxSize(),
+                            modifier = Modifier
+                                .align(Alignment.TopCenter)
+                                .heightIn(min = topItemHeight),
                             movie = state.discoverMovies[page],
                             onMovieClick = {
                                 onMovieClick(it)
