@@ -31,7 +31,7 @@ fun BodyContent(
 ) {
     // LazyColumn을 활용하여 스크롤 가능한 콘텐츠 표시
     // item은 item 블록 내에 각 항목의 UI 구성 요소를 정의
-    LazyColumn(modifier = Modifier) {
+    LazyColumn(modifier = modifier) {
         item {
             Card(modifier = Modifier.fillMaxWidth()) {
                 // Discover Movies 섹션 헤더

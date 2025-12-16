@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -60,7 +61,7 @@ fun TopContent(
     // 클릭 시 onMovieClick 람다 함수를 호출하여 영화 ID를 전달
     Box(
         modifier = modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .clickable { onMovieClick(movie.id) }
     ) {
         // AsyncImage 컴포저블을 사용하여 이미지 로드 및 표시

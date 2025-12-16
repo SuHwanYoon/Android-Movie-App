@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
@@ -140,8 +141,11 @@ fun HomeScreen(
                 // pageSize는 각 페이지의 크기를 지정
                 // pageSpacing은 페이지 간의 간격을 지정
                 HorizontalPager(
+                    modifier = Modifier
+                        .align(Alignment.TopCenter)
+                        .height(topItemHeight),
                     state = pagerState,
-                    contentPadding = PaddingValues(),
+                    contentPadding = PaddingValues(defaultPadding),
                     pageSize = PageSize.Fill,
                     pageSpacing = itemSpacing
                 ) {
@@ -166,9 +170,7 @@ fun HomeScreen(
                             // onMovieClick 람다 함수는 영화 항목이 클릭될 때 호출
                             index ->
                             TopContent(
-                                modifier = Modifier
-                                    .align(Alignment.TopCenter)
-                                    .heightIn(min = topItemHeight),
+                                modifier = Modifier.fillMaxSize(),
                                 movie = state.discoverMovies[index],
                                 onMovieClick = {
                                     onMovieClick(it)
@@ -181,9 +183,7 @@ fun HomeScreen(
                         // onMovieClick 람다 함수는 영화 항목이 클릭될 때 호출
                     } else {
                         TopContent(
-                          modifier = Modifier
-                              .align(Alignment.TopCenter)
-                              .heightIn(min = topItemHeight),
+                            modifier = Modifier.fillMaxSize(),
                             movie = state.discoverMovies[page],
                             onMovieClick = {
                                 onMovieClick(it)
@@ -221,23 +221,3 @@ fun HomeScreen(
 
 }
 
-// preview용 더미데이터
-@Preview(showBackground = true)
-@Composable
-fun getDummyMovies() = List(10) {
-    Movie(
-        id = it,
-        backdropPath = "/path/to/backdrop$it.jpg",
-        genreIds = listOf("Action", "Adventure"),
-        originalLanguage = "en",
-        originalTitle = "Original Title $it",
-        overview = "This is a brief overview of movie $it.",
-        popularity = 123.45 + it,
-        posterPath = "/path/to/poster$it.jpg",
-        releaseDate = "2023-10-0${it + 1}",
-        title = "Movie Title $it",
-        voteAverage = 7.5 + (it % 3),
-        voteCount = 1000 + (it * 100),
-        video = false
-    )
-}
