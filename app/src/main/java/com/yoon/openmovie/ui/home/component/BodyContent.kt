@@ -41,7 +41,7 @@ fun BodyContent(
             Card(modifier = Modifier.fillMaxWidth()) {
                 // Discover Movies 섹션 헤더
                 // Row 레이아웃을 사용하여 제목과 아이콘 버튼을 가로로 배치
-                // fillMaxSize()는 Row가 가능한 최대 크기를 차지하도록 설정
+                // fillMaxWidth()는 Row가 가로로 전체 너비를 차지하도록 설정
                 // padding(itemSpacing)은 Row 내부에 일정한 여백을 추가
                 // horizontalArrangement = Arrangement.SpaceBetween는
                 // Row 내의 항목들을 좌우 끝에 배치
@@ -49,7 +49,7 @@ fun BodyContent(
                 // Row 내의 항목들을 수직으로 중앙에 정렬
                 Row(
                     modifier = Modifier
-                        .fillMaxSize()
+                        .fillMaxWidth()
                         .padding(itemSpacing),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
