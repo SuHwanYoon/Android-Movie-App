@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.yoon.openmovie.ui.home.HomeScreen
 import com.yoon.openmovie.ui.theme.JetMovieTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,11 +24,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             JetMovieTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                HomeScreen {
+
                 }
             }
         }
