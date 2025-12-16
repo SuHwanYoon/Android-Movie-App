@@ -85,31 +85,42 @@ fun HomeScreen(
     val isDragged by pagerState.interactionSource.collectIsDraggedAsState()
 
     // LaunchedEffect는 컴포저블 함수 내에서 코루틴을 실행할 수 있는 효과
-    // key1 파라미터는 이 효과가 재실행될 조건을 지정
-    // 여기서는 pagerState.currentPage가 변경될 때마다 효과가 재실행
-    LaunchedEffect(key1 = pagerState.currentPage) {
-        // 자동 스크롤링이 비활성화된 경우 효과를 종료
-        if (isDragged) {
-            isAutoScrolling = false
-        } else {
-            // 자동 스크롤링이 활성화된 경우 5초 대기 후 다음 페이지로 스크롤
-            // isAutoScrolling 값이 true인 동안에만 자동 스크롤링 동작 수행
-            // 5초(5000밀리초) 대기
-            // with 블록은 특정 객체(pagerState)의 컨텍스트 내에서 코드를 실행할 수 있도록 함
-            // pagerState를 사용하여 현재 페이지를 확인하고,
-            // 다음 페이지로 스크롤하거나 첫 페이지로 돌아감
-            // isAutoScrolling 값이 false로 변경되면 이 블록이 실행되지 않음
-            isAutoScrolling = true
+    // key1을 Unit으로 설정하여 컴포저블이 처음 시작될 때만 실행되고,
+    // 페이지 변경 시에는 재시작되지 않도록 함 (애니메이션 중단 방지)
+    LaunchedEffect(key1 = Unit) {
+        // 무한 루프로 자동 스크롤링 구현
+        while (true) {
+            // 5초 대기
             delay(5000)
-            with(pagerState) {
-                val target = if (currentPage < state.discoverMovies.size - 1) {
-                    currentPage + 1
+            // 사용자가 드래그 중이거나 자동 스크롤이 비활성화된 경우 스킵
+            if (!isDragged && isAutoScrolling) {
+                // 다음 페이지 계산
+                val target = if (pagerState.currentPage < state.discoverMovies.size - 1) {
+                    pagerState.currentPage + 1
                 } else {
                     0
                 }
-                // animateScrollToPage 함수를 사용하여 페이저를 스크롤
-                animateScrollToPage(target)
+                // 부드러운 애니메이션으로 페이지 이동
+                // animationSpec을 사용하여 자연스러운 스크롤 구현
+                pagerState.animateScrollToPage(
+                    page = target,
+                    animationSpec = androidx.compose.animation.core.tween(
+                        durationMillis = 800, // 애니메이션 지속 시간
+                        easing = androidx.compose.animation.core.FastOutSlowInEasing // 부드러운 감속
+                    )
+                )
             }
+        }
+    }
+
+    // 사용자가 드래그할 때 자동 스크롤 비활성화
+    LaunchedEffect(key1 = isDragged) {
+        if (isDragged) {
+            isAutoScrolling = false
+        } else {
+            // 드래그 종료 후 1초 뒤 자동 스크롤 재활성화
+            delay(1000)
+            isAutoScrolling = true
         }
     }
     // 오류 메시지를 표시하는 Box

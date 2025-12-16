@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -34,6 +33,7 @@ import com.yoon.openmovie.movie.domain.models.Movie
 import com.yoon.openmovie.ui.home.defaultPadding
 import com.yoon.openmovie.ui.home.itemSpacing
 import com.yoon.openmovie.utils.K
+import java.util.Locale
 
 // TopContent 컴포저블 함수는 상단 콘텐츠를 표시하는 UI 구성 요소입니다.
 // modifier 매개변수는 UI 요소의 레이아웃과 스타일을 조정하는 데 사용됩니다.
@@ -131,7 +131,9 @@ fun MovieDetail(
                     tint = Color.Yellow
                 )
                 Spacer(modifier = Modifier.width(4.dp))
-                Text(text = rating.toString())
+                // 평점을 소수점 한 자리까지만 표시 (예: 8.5, 6.3)
+                // Locale.US를 사용하여 모든 지역에서 일관되게 "." (마침표)를 소수점으로 사용
+                Text(text = String.format(Locale.US, "%.1f", rating))
             }
         }
 
