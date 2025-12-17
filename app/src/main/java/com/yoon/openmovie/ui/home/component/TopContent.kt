@@ -1,5 +1,6 @@
 package com.yoon.openmovie.ui.home.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
@@ -44,6 +46,8 @@ fun TopContent(
     modifier: Modifier,
     movie: Movie,
     onMovieClick: (id: Int) -> Unit,
+    currentPage: Int = 0,
+    totalPages: Int = 1,
 ) {
     // 이미지 요청을 생성하여 영화 포스터 이미지를 로드
     // coil 을 사용해서 이미지를 불러오기
@@ -69,6 +73,8 @@ fun TopContent(
         // contentDescription은 이미지에 대한 설명을 제공하지만, null로 설정하여 생략
         // matchParentSize()는 이미지가 부모 Box의 크기에 맞게 조정되도록 설정
         // ContentScale.Crop은 이미지가 Box를 완전히 채우도록 크롭되도록 설정
+        // alignment = Alignment.TopCenter로 이미지를 상단에 정렬하여
+        // 포스터 상단(제목, 배우)은 보이고 하단만 잘리도록 함
         // onError는 이미지 로딩 중 오류가 발생했을 때 호출되는 람다 함수로,
         // 여기서는 오류의 스택 트레이스를 출력
         // placeholder는 이미지가 로드되는 동안 표시할 대체 이미지를 지정
@@ -77,21 +83,42 @@ fun TopContent(
             contentDescription = null,
             modifier = Modifier.matchParentSize(),
             contentScale = ContentScale.Crop,
+            alignment = Alignment.TopCenter,
             onError = { it.result.throwable.printStackTrace() },
             placeholder = painterResource(id = R.drawable.bg_image_movie)
         )
         // MovieDetail 컴포저블을 호출하여 영화 세부 정보를 표시
         // rating, title, genre 매개변수에는 각각 영화의 평점, 제목, 장르 목록을 전달
         // modifier 매개변수에는 영화 세부 정보가 Box의 하단 시작 부분에 정렬되고,
-        // 아래쪽에 20dp의 패딩이 적용되도록 설정
+        // 페이지 인디케이터와 겹치지 않도록 하단 여백을 80dp로 설정
         MovieDetail(
             rating = movie.voteAverage,
             title = movie.title,
             genre = movie.genreIds,
             modifier = Modifier
                 .align(Alignment.BottomStart)
-                .padding(bottom = 20.dp)
+                .padding(bottom = 40.dp)
         )
+
+        // 페이지 인디케이터 (현재 페이지 / 전체 페이지)
+        // 우측 하단에 배치 - MovieDetail이 위로 올라가서 겹치지 않음
+        Box(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 20.dp, end = 16.dp)
+                .background(
+                    color = Color.Black.copy(alpha = 0.6f),
+                    shape = RoundedCornerShape(12.dp)
+                )
+                .padding(horizontal = 12.dp, vertical = 6.dp)
+        ) {
+            Text(
+                text = "${currentPage + 1}/$totalPages",
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+        }
     }
 }
 
@@ -113,11 +140,12 @@ fun MovieDetail(
         // 별 아이콘과 평점을 표시하는 MovieCard 컴포저블 호출
         MovieCard {
             // Row 레이아웃을 사용하여 영화 제목과 평점을 가로로 정렬
-            // modifier.padding(4.dp)은 Row에 4dp의 패딩을 적용
+            // padding(horizontal = 12.dp, vertical = 4.dp)로 좌우 여백을 넓게 설정하여
+            // 평점 숫자가 여유롭게 표시되도록 함
             // horizontalArrangement는 Row 내의 항목들을 수평으로 중앙에 정렬
             // verticalAlignment는 Row 내의 항목들을 수직으로 중앙에 정렬
             Row(
-                modifier = Modifier.padding(4.dp),
+                modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -139,17 +167,26 @@ fun MovieDetail(
 
         Spacer(modifier = Modifier.height(itemSpacing))
         // 영화제목을 표시하는 Text 컴포저블
-        //  style는 제목의 텍스트 스타일을 MaterialTheme의 titleLarge로 설정
-        // fontWeight는 텍스트를 굵게 표시하도록 설정
-        // maxLines는 제목이 한 줄로 제한되도록 설정
-        // color는 텍스트 색상을 흰색으로 설정
-        Text(
-            text = title,
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold,
-            maxLines = 1,
-            color = Color.White
-        )
+        // Box로 감싸서 반투명 검정 배경을 추가하여 밝은 포스터에서도 제목이 잘 보이도록 함
+        // background에 검정색 60% 불투명도를 적용하여 텍스트 가독성 향상
+        // padding으로 텍스트 주변에 여백 추가
+        // RoundedCornerShape로 배경 모서리를 둥글게 처리
+        Box(
+            modifier = Modifier
+                .background(
+                    color = Color.Black.copy(alpha = 0.6f),
+                    shape = RoundedCornerShape(8.dp)
+                )
+                .padding(horizontal = 8.dp, vertical = 4.dp)
+        ) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+                maxLines = 1,
+                color = Color.White
+            )
+        }
         Spacer(modifier = Modifier.height(itemSpacing))
 
         // 영화 장르을 표시하는 MovieCard 컴포저블 호출
