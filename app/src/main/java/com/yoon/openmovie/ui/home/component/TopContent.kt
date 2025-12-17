@@ -113,11 +113,12 @@ fun MovieDetail(
         // 별 아이콘과 평점을 표시하는 MovieCard 컴포저블 호출
         MovieCard {
             // Row 레이아웃을 사용하여 영화 제목과 평점을 가로로 정렬
-            // modifier.padding(4.dp)은 Row에 4dp의 패딩을 적용
+            // padding(horizontal = 12.dp, vertical = 4.dp)로 좌우 여백을 넓게 설정하여
+            // 평점 숫자가 여유롭게 표시되도록 함
             // horizontalArrangement는 Row 내의 항목들을 수평으로 중앙에 정렬
             // verticalAlignment는 Row 내의 항목들을 수직으로 중앙에 정렬
             Row(
-                modifier = Modifier.padding(4.dp),
+                modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {

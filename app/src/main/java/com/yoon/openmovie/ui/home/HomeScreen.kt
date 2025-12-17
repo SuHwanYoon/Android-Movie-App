@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.rememberPagerState
@@ -127,7 +129,13 @@ fun HomeScreen(
     // AnimatedVisibility 컴포저블은 애니메이션과 함께
     // 콘텐츠의 가시성을 제어하는 데 사용됩니다.
     // state.error가 null이 아니면 오류 메시지를 표시
-    Box(modifier = Modifier) {
+    // statusBarsPadding()과 navigationBarsPadding()을 추가하여 시스템 바와의 겹침 방지
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .statusBarsPadding()
+            .navigationBarsPadding()
+    ) {
         AnimatedVisibility(visible = state.error != null) {
             Text(
                 text = state.error ?: "Unknown Error",
@@ -142,7 +150,14 @@ fun HomeScreen(
         AnimatedVisibility(visible = !state.isLoading && state.error == null) {
             // Column을 사용하여 TopContent와 BodyContent를 수직으로 배치
             // fillMaxSize()로 전체 화면을 차지하도록 설정
-            BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+            // statusBarsPadding()과 navigationBarsPadding()을 추가하여
+            // 상단 상태바 및 하단 네비게이션 바와의 겹침 방지
+            BoxWithConstraints(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .statusBarsPadding()
+                    .navigationBarsPadding()
+            ) {
                 val boxHeight = this.maxHeight
                 val topItemHeight = boxHeight * .45f
                 val bodyItemHeight = boxHeight * .55f
