@@ -46,6 +46,8 @@ fun TopContent(
     modifier: Modifier,
     movie: Movie,
     onMovieClick: (id: Int) -> Unit,
+    currentPage: Int = 0,
+    totalPages: Int = 1,
 ) {
     // 이미지 요청을 생성하여 영화 포스터 이미지를 로드
     // coil 을 사용해서 이미지를 불러오기
@@ -88,15 +90,35 @@ fun TopContent(
         // MovieDetail 컴포저블을 호출하여 영화 세부 정보를 표시
         // rating, title, genre 매개변수에는 각각 영화의 평점, 제목, 장르 목록을 전달
         // modifier 매개변수에는 영화 세부 정보가 Box의 하단 시작 부분에 정렬되고,
-        // 아래쪽에 20dp의 패딩이 적용되도록 설정
+        // 페이지 인디케이터와 겹치지 않도록 하단 여백을 80dp로 설정
         MovieDetail(
             rating = movie.voteAverage,
             title = movie.title,
             genre = movie.genreIds,
             modifier = Modifier
                 .align(Alignment.BottomStart)
-                .padding(bottom = 20.dp)
+                .padding(bottom = 40.dp)
         )
+
+        // 페이지 인디케이터 (현재 페이지 / 전체 페이지)
+        // 우측 하단에 배치 - MovieDetail이 위로 올라가서 겹치지 않음
+        Box(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 20.dp, end = 16.dp)
+                .background(
+                    color = Color.Black.copy(alpha = 0.6f),
+                    shape = RoundedCornerShape(12.dp)
+                )
+                .padding(horizontal = 12.dp, vertical = 6.dp)
+        ) {
+            Text(
+                text = "${currentPage + 1}/$totalPages",
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+        }
     }
 }
 

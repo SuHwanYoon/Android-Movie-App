@@ -74,11 +74,14 @@ fun HomeScreen(
 
     // pagerState 변수는 수평 페이저 컴포넌트의 상태를 관리하는 객체
     // rememberPagerState 함수는 페이저의 현재 페이지와 총 페이지 수를 기억
-    // initialPage는 페이저가 처음 시작할 페이지를 지정
-    // pageCount는 페이저에 표시될 총 페이지 수를 지정
+    // 순환 스크롤을 구현하기 위해 큰 pageCount를 사용하고
+    // 실제 콘텐츠 인덱스는 modulo 연산으로 매핑
+    val actualPageCount = state.discoverMovies.size
+    // 충분히 큰 시작 인덱스 사용하여 양방향 스크롤 가능
+    val startIndex = 10000
     val pagerState = rememberPagerState(
-        initialPage = 0,
-        pageCount = { state.discoverMovies.size }
+        initialPage = if (actualPageCount > 0) startIndex else 0,
+        pageCount = { if (actualPageCount > 0) 100000 else 0 }
     )
 
     // isDragged 변수는 사용자가 페이저를 드래그하고 있는지 여부를 나타내는 반응형 데이터
@@ -87,25 +90,17 @@ fun HomeScreen(
     val isDragged by pagerState.interactionSource.collectIsDraggedAsState()
 
     // LaunchedEffect는 컴포저블 함수 내에서 코루틴을 실행할 수 있는 효과
-    // key1을 Unit으로 설정하여 컴포저블이 처음 시작될 때만 실행되고,
-    // 페이지 변경 시에는 재시작되지 않도록 함 (애니메이션 중단 방지)
-    LaunchedEffect(key1 = Unit) {
+    // key를 actualPageCount > 0으로 설정하여 영화가 로드된 후에 자동 스크롤 시작
+    LaunchedEffect(key1 = actualPageCount > 0) {
         // 무한 루프로 자동 스크롤링 구현
         while (true) {
-            // 5초 대기
+            // 3초 대기
             delay(5000)
             // 사용자가 드래그 중이거나 자동 스크롤이 비활성화된 경우 스킵
-            if (!isDragged && isAutoScrolling) {
-                // 다음 페이지 계산
-                val target = if (pagerState.currentPage < state.discoverMovies.size - 1) {
-                    pagerState.currentPage + 1
-                } else {
-                    0
-                }
-                // 부드러운 애니메이션으로 페이지 이동
-                // animationSpec을 사용하여 자연스러운 스크롤 구현
+            if (!isDragged && isAutoScrolling && actualPageCount > 0) {
+                // 순환 스크롤: 항상 다음 페이지로 이동 (무한 루프)
                 pagerState.animateScrollToPage(
-                    page = target,
+                    page = pagerState.currentPage + 1,
                     animationSpec = androidx.compose.animation.core.tween(
                         durationMillis = 800, // 애니메이션 지속 시간
                         easing = androidx.compose.animation.core.FastOutSlowInEasing // 부드러운 감속
@@ -131,7 +126,7 @@ fun HomeScreen(
     // state.error가 null이 아니면 오류 메시지를 표시
     // statusBarsPadding()과 navigationBarsPadding()을 추가하여 시스템 바와의 겹침 방지
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .statusBarsPadding()
             .navigationBarsPadding()
@@ -175,10 +170,12 @@ fun HomeScreen(
                     pageSpacing = itemSpacing
                 ) {
                     //  page 매개변수는 현재 페이지의 인덱스를 나타냄
+                    // actualIndex는 순환 스크롤을 위해 modulo 연산으로 실제 콘텐츠 인덱스를 계산
                     // isAutoScrolling 값에 따라 다른 콘텐츠를 표시
                     // isAutoScrolling이 true인 경우 TopContent 컴포저블을 표시
                     //  영화 항목이 클릭되면 onMovieClick 람다 함수가 호출
                         page ->
+                    val actualIndex = if (actualPageCount > 0) page % actualPageCount else 0
                     if (isAutoScrolling) {
                         AnimatedContent(
                             targetState = page,
@@ -193,15 +190,17 @@ fun HomeScreen(
                             // TopContent의 최소 높이를 boxHeight의 45%로 설정
                             // movie 매개변수에는 현재 페이지에 해당하는 영화 데이터가 전달
                             // onMovieClick 람다 함수는 영화 항목이 클릭될 때 호출
-                            index ->
+                            _ ->
                             TopContent(
                                 modifier = Modifier
                                     .align(Alignment.TopCenter)
                                     .heightIn(min = topItemHeight),
-                                movie = state.discoverMovies[index],
+                                movie = state.discoverMovies[actualIndex],
                                 onMovieClick = {
                                     onMovieClick(it)
-                                }
+                                },
+                                currentPage = actualIndex,
+                                totalPages = actualPageCount
                             )
 
                         }
@@ -213,10 +212,12 @@ fun HomeScreen(
                             modifier = Modifier
                                 .align(Alignment.TopCenter)
                                 .heightIn(min = topItemHeight),
-                            movie = state.discoverMovies[page],
+                            movie = state.discoverMovies[actualIndex],
                             onMovieClick = {
                                 onMovieClick(it)
-                            }
+                            },
+                            currentPage = actualIndex,
+                            totalPages = actualPageCount
                         )
                     }
                 }
