@@ -89,19 +89,21 @@ fun MovieCoverImage(
         // fillMaxWidth()는 Surface가 Box의 전체 너비를 차지하도록 설정
         // color는 Surface의 배경 색상을 검정색의 80% 불투명도로 설정
         // contentColor는 Surface 내부의 콘텐츠 색상을 흰색으로 설정
-        // shape는 Surface의 모서리를 아래쪽 끝과 시작 부분에서 각각 30dp 둥글게 만듦
+        // shape는 하단만 둥글게 처리하여 이미지 하단 모서리와 일치시킴
         Surface(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth(),
             color = Color.Black.copy(.8f),
             contentColor = Color.White,
-            shape = RoundedCornerShape(bottomEnd = 30.dp, bottomStart = 30.dp)
+            shape = RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp)
 
         ) {
             Box(
                 contentAlignment = Alignment.Center,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp, vertical = 4.dp)
             ) {
                 Text(text = movie.title, maxLines = 1)
             }
