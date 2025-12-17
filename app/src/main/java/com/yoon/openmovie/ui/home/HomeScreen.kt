@@ -159,8 +159,10 @@ fun HomeScreen(
                     .navigationBarsPadding()
             ) {
                 val boxHeight = this.maxHeight
-                val topItemHeight = boxHeight * .45f
-                val bodyItemHeight = boxHeight * .55f
+                // TopContent와 BodyContent를 각각 50%씩 할당하여
+                // 포스터가 BodyContent에 가려지지 않도록 충분한 공간 확보
+                val topItemHeight = boxHeight * .50f
+                val bodyItemHeight = boxHeight * .50f
                 // HorizontalPager 사용하여 영화 항목을 가로로 스크롤할 수 있는 UI 구성
                 //  pagerState를 전달하여 페이저의 상태를 관리
                 // contentPadding은 페이저의 콘텐츠에 대한 패딩을 지정

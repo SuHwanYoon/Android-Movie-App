@@ -1,5 +1,6 @@
 package com.yoon.openmovie.ui.home.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
@@ -69,6 +71,8 @@ fun TopContent(
         // contentDescription은 이미지에 대한 설명을 제공하지만, null로 설정하여 생략
         // matchParentSize()는 이미지가 부모 Box의 크기에 맞게 조정되도록 설정
         // ContentScale.Crop은 이미지가 Box를 완전히 채우도록 크롭되도록 설정
+        // alignment = Alignment.TopCenter로 이미지를 상단에 정렬하여
+        // 포스터 상단(제목, 배우)은 보이고 하단만 잘리도록 함
         // onError는 이미지 로딩 중 오류가 발생했을 때 호출되는 람다 함수로,
         // 여기서는 오류의 스택 트레이스를 출력
         // placeholder는 이미지가 로드되는 동안 표시할 대체 이미지를 지정
@@ -77,6 +81,7 @@ fun TopContent(
             contentDescription = null,
             modifier = Modifier.matchParentSize(),
             contentScale = ContentScale.Crop,
+            alignment = Alignment.TopCenter,
             onError = { it.result.throwable.printStackTrace() },
             placeholder = painterResource(id = R.drawable.bg_image_movie)
         )
@@ -140,17 +145,26 @@ fun MovieDetail(
 
         Spacer(modifier = Modifier.height(itemSpacing))
         // 영화제목을 표시하는 Text 컴포저블
-        //  style는 제목의 텍스트 스타일을 MaterialTheme의 titleLarge로 설정
-        // fontWeight는 텍스트를 굵게 표시하도록 설정
-        // maxLines는 제목이 한 줄로 제한되도록 설정
-        // color는 텍스트 색상을 흰색으로 설정
-        Text(
-            text = title,
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold,
-            maxLines = 1,
-            color = Color.White
-        )
+        // Box로 감싸서 반투명 검정 배경을 추가하여 밝은 포스터에서도 제목이 잘 보이도록 함
+        // background에 검정색 60% 불투명도를 적용하여 텍스트 가독성 향상
+        // padding으로 텍스트 주변에 여백 추가
+        // RoundedCornerShape로 배경 모서리를 둥글게 처리
+        Box(
+            modifier = Modifier
+                .background(
+                    color = Color.Black.copy(alpha = 0.6f),
+                    shape = RoundedCornerShape(8.dp)
+                )
+                .padding(horizontal = 8.dp, vertical = 4.dp)
+        ) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+                maxLines = 1,
+                color = Color.White
+            )
+        }
         Spacer(modifier = Modifier.height(itemSpacing))
 
         // 영화 장르을 표시하는 MovieCard 컴포저블 호출
