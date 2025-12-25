@@ -5,10 +5,26 @@ import com.yoon.openmovie.movie.data.remote.models.MovieDto
 import com.yoon.openmovie.movie.domain.models.Movie
 import com.yoon.openmovie.utils.GenreConstants
 
+/**
+ * [ApiMapper] 인터페이스를 구현하여 [MovieDto]를 도메인 모델인 [List]<[Movie]>로 변환하는 클래스입니다.
+ *
+ * 이 클래스는 네트워크 응답(DTO)을 UI나 비즈니스 로직에서 사용하기 적합한 형태의 도메인 객체 리스트로 매핑합니다.
+ * 주요 기능으로는 null 값에 대한 기본값 처리(fallback) 및 장르 ID를 장르 이름으로 변환하는 작업 등이 포함됩니다.
+ */
 // MovieApiMapperImpl 클래스는 ApiMapper 인터페이스를 구현하여
 // MovieDto를 List<Movie> 도메인 모델로 변환하는 매핑 기능을 제공합니다.
 // ApiMapper 인터페이스를 구현하였기 때문에 mapToDomain 메서드를 반드시 구현해야 합니다.
 class MovieApiMapperImpl : ApiMapper<List<Movie>, MovieDto> {
+    /**
+     * API 응답 데이터인 [MovieDto] 객체를 도메인 모델 리스트인 [List]<[Movie]>로 변환합니다.
+     *
+     * [MovieDto] 내부의 `results` 리스트를 순회하며 각 영화 정보를 [Movie] 객체로 매핑합니다.
+     * 이 과정에서 `formatEmptyValue`와 `formatGenre` 등의 보조 함수를 사용하여
+     * null이거나 비어있는 값에 대한 예외 처리를 수행하고, 장르 ID를 읽을 수 있는 이름으로 변환합니다.
+     *
+     * @param apiDto 네트워크 요청을 통해 전달받은 영화 데이터 DTO 객체
+     * @return 변환된 [Movie] 도메인 객체들의 리스트. `apiDto.results`가 null인 경우 빈 리스트를 반환합니다.
+     */
     // mapToDomain 메서드는 API데이터를 받은 MovieDto 객체를  map을 사용하여
     // 프로퍼티중 하나인 Result타입의 리스트를 순회하고 각 Result 항목요소를 Movie 도메인 모델에 담아
     // Movie객체 타입의 리스트를 반환합니다.
