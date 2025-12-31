@@ -5,6 +5,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,6 +20,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yoon.openmovie.movie.domain.models.Movie
 import com.yoon.openmovie.movie_detail.domain.models.MovieDetail
+import com.yoon.openmovie.ui.components.LoadingView
+import com.yoon.openmovie.ui.detail.components.DetailBodyContent
 import com.yoon.openmovie.ui.detail.components.DetailTopContent
 
 
@@ -46,16 +52,32 @@ fun MovieDetailScreen(
                 val boxHeight = maxHeight
                 val topItemHeight = boxHeight * .4f
                 val bodyItemHeight = boxHeight * .6f
+                // 상단 포스터 이미지
                 state.movieDetail?.let {movieDetail ->
                     DetailTopContent(
                         movieDetail = movieDetail,
                         modifier = Modifier.height(topItemHeight).align(Alignment.TopCenter)
                     )
+                    // 하단 상세 정보
+                    DetailBodyContent(
+                       movieDetail = movieDetail,
+                        movies = state.movies,
+                        isMovieLoading = state.isMovieLoading,
+                        fetchMovies = movieDetailViewModel::fetchMovie,
+                        onMovieClick = onMovieClick,
+                        onActorClick = onActorClick,
+                        modifier = Modifier.align(Alignment.BottomCenter).height(bodyItemHeight)
+                    )
                 }
+            }
+            // 뒤로가기 버튼
+            IconButton(onClick = onNavigateUp, modifier = Modifier.align(Alignment.TopStart)) {
+                Icon(imageVector = Icons.AutoMirrored.Default.ArrowBack, contentDescription = "Back")
             }
         }
     }
-
+    // 로딩중 UI
+    LoadingView(isLoading = state.isLoading)
 }
 
 @Preview(showBackground = true)
