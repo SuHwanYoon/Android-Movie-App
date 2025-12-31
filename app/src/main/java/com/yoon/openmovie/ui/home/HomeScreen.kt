@@ -176,34 +176,33 @@ fun HomeScreen(
                     //  영화 항목이 클릭되면 onMovieClick 람다 함수가 호출
                         page ->
                     val actualIndex = if (actualPageCount > 0) page % actualPageCount else 0
-                    if (isAutoScrolling) {
-                        AnimatedContent(
-                            targetState = page,
-                            label = "",
-                        ) {
-                            // index는 현재 페이지의 인덱스를 나타냄
-                            // it는 AnimatedContent의 targetState를 나타내며,
-                            // 여기서는 현재 페이지 인덱스를 의미
-                            //  Modifier.align(Alignment.TopCenter)를 사용하여
-                            // TopContent를 상단 중앙에 정렬
-                            // heightIn(min = topItemHeight)를 사용하여
-                            // TopContent의 최소 높이를 boxHeight의 45%로 설정
-                            // movie 매개변수에는 현재 페이지에 해당하는 영화 데이터가 전달
-                            // onMovieClick 람다 함수는 영화 항목이 클릭될 때 호출
-                            _ ->
-                            TopContent(
-                                modifier = Modifier
-                                    .align(Alignment.TopCenter)
-                                    .heightIn(min = topItemHeight),
-                                movie = state.discoverMovies[actualIndex],
-                                onMovieClick = {
-                                    onMovieClick(it)
-                                },
-                                currentPage = actualIndex,
-                                totalPages = actualPageCount
-                            )
+                     if (isAutoScrolling) {
+                         AnimatedVisibility(
+                             visible = true,
+                             label = "",
+                         ) {
+                             // index는 현재 페이지의 인덱스를 나타냄
+                             // it는 AnimatedContent의 targetState를 나타내며,
+                             // 여기서는 현재 페이지 인덱스를 의미
+                             //  Modifier.align(Alignment.TopCenter)를 사용하여
+                             // TopContent를 상단 중앙에 정렬
+                             // heightIn(min = topItemHeight)를 사용하여
+                             // TopContent의 최소 높이를 boxHeight의 45%로 설정
+                             // movie 매개변수에는 현재 페이지에 해당하는 영화 데이터가 전달
+                             // onMovieClick 람다 함수는 영화 항목이 클릭될 때 호출
+                             TopContent(
+                                 modifier = Modifier
+                                     .align(Alignment.TopCenter)
+                                     .heightIn(min = topItemHeight),
+                                 movie = state.discoverMovies[actualIndex],
+                                 onMovieClick = {
+                                     onMovieClick(it)
+                                 },
+                                 currentPage = actualIndex,
+                                 totalPages = actualPageCount
+                             )
 
-                        }
+                         }
                         // 자동 스크롤링이 비활성화된 경우 일반 TopContent 표시
                         // movie 매개변수에는 현재 페이지에 해당하는 영화 데이터가 전달
                         // onMovieClick 람다 함수는 영화 항목이 클릭될 때 호출

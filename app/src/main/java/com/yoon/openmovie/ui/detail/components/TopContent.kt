@@ -146,14 +146,14 @@ private fun MovieDetailComponent(
                 }
                 // watch trailer 버튼
                 Card(
-                    onClick = {},
+                    onClick = {/* TODO */  },
                     colors = CardDefaults.cardColors(
                         containerColor = Color.White,
                         contentColor = primaryLightHighContrast),
                     modifier = Modifier.weight(1f),
                     shape = RoundedCornerShape(topEnd = 30.dp, bottomEnd = 30.dp)
                 ) {
-                    Row(modifier = Modifier.padding(4.dp)) {
+                     Row(modifier = Modifier.padding(4.dp)) {
                         Icon(imageVector = Icons.Filled.Movie, contentDescription = "Movie Icon")
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(text = "Watch Trailer")
