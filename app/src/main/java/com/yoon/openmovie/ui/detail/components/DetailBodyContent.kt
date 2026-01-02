@@ -16,7 +16,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
-import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Card
@@ -132,17 +132,12 @@ fun DetailBodyContent(
                     // 액션 아이콘 버튼들을 표시하는 Row
                     Row(modifier = Modifier.fillMaxSize()) {
                         // ActionIcon 열거형의 각 항목에 대해 ActionIconBtn 컴포저블을 생성
-                        // 마지막 아이콘(다운로드)은 기본 배경색 대신 primaryContainer 색상을 사용
-                        // 나머지 아이콘들은 반투명 검은색 배경을 사용
+                        // 모든 아이콘에 반투명 검은색 배경을 사용
                         ActionIcon.entries.forEachIndexed { index, actionIcon ->
                             ActionIconBtn(
                                 icon = actionIcon.icon,
                                 contentDescription = actionIcon.contentDescription,
-                                bgColor = if (index == ActionIcon.entries.lastIndex) {
-                                    MaterialTheme.colorScheme.primaryContainer
-                                } else {
-                                    Color.Black.copy(.5f)
-                                }
+                                bgColor = Color.Black.copy(.5f)
                             )
                         }
                     }
@@ -168,15 +163,13 @@ fun DetailBodyContent(
                         }
                     }
                     // 배우 목록 컴포저블 호출
-                    LazyRow {
+                    LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                         items(movieDetail.cast) {
                             // 각 배우 항목에 대해 ActorItem 컴포저블을 생성
                             // 클릭 시 onActorClick 콜백 호출
                             ActorItem(
                                 cast = it,
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .clickable { onActorClick(it.id) }
+                                modifier = Modifier.clickable { onActorClick(it.id) }
                             )
                         }
                     }
@@ -229,7 +222,7 @@ fun DetailBodyContent(
  * @property contentDescription 스크린 리더 등을 위한 아이콘 설명.
  */
 private enum class ActionIcon(val icon: ImageVector, val contentDescription: String) {
-    BookMark(Icons.Default.Bookmark, "Bookmark Icon"),
+    BookMark(Icons.Default.BookmarkBorder, "Bookmark Icon"),
     Share(Icons.Default.Share, "Share Icon"),
     Download(Icons.Default.Download, "Download Icon")
 }

@@ -67,8 +67,8 @@ data class Cast(
 ) {
     //
     private val nameParts = name.split(" ", limit = 2)
-    val firstName = nameParts[0]
-    val lastName = nameParts[1]
+    val firstName = nameParts.getOrNull(0) ?: ""
+    val lastName = nameParts.getOrNull(1) ?: ""
 }
 
 /**

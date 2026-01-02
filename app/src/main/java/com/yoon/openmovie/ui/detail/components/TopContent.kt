@@ -97,9 +97,9 @@ private fun MovieDetailComponent(
     rating: Double,
     releaseDate: String
 ) {
-    // 수직으로 UI요소를 정렬할 목적의 Column 컴포저블
-    Column(modifier) {
-        MovieCard(modifier = Modifier.padding(horizontal = defaultPadding)) {
+    // 포스터 하단에 UI요소를 위치시킬 목적의 Box 컴포저블
+    Box(modifier.fillMaxSize()) {
+        MovieCard(modifier = Modifier.align(Alignment.BottomStart).padding(horizontal = defaultPadding).padding(bottom = 60.dp)) {
             // 외부 Row 컴포저블(Main Row) : 별점 영역과 출시 날짜 영역 전체를 묶음
             Row(
                 horizontalArrangement = Arrangement.Center,
@@ -128,36 +128,39 @@ private fun MovieDetailComponent(
                     maxLines = 1
                 )
             }
-            // Watch Now 버튼 + Watch Trailer 버튼을 나타낼 Row 컴포저블
-            Row(
-                modifier = Modifier.fillMaxSize().padding(horizontal = defaultPadding)
+        }
+        // Watch Now 버튼 + Watch Trailer 버튼을 나타낼 Row 컴포저블
+        Row(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(horizontal = defaultPadding)
+        ) {
+            // watch now 버튼
+            Card(
+                onClick = { /* TODO: Implement watch now functionality */ },
+                modifier = Modifier.weight(1f),
+                shape = RoundedCornerShape(topStart = 30.dp, bottomStart = 30.dp)
             ) {
-                // watch now 버튼
-                Card(
-                    onClick = { /* TODO: Implement watch now functionality */ },
-                    modifier = Modifier.weight(1f),
-                    shape = RoundedCornerShape(topStart = 30.dp, bottomStart = 30.dp)
-                ) {
-                    Row(modifier = Modifier.padding(4.dp)) {
-                        Icon(imageVector = Icons.Filled.PlayArrow, contentDescription = "Play Icon")
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(text = "Watch Now")
-                    }
+                Row(modifier = Modifier.padding(4.dp)) {
+                    Icon(imageVector = Icons.Filled.PlayArrow, contentDescription = "Play Icon")
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(text = "Watch Now")
                 }
-                // watch trailer 버튼
-                Card(
-                    onClick = {/* TODO */  },
-                    colors = CardDefaults.cardColors(
-                        containerColor = Color.White,
-                        contentColor = primaryLightHighContrast),
-                    modifier = Modifier.weight(1f),
-                    shape = RoundedCornerShape(topEnd = 30.dp, bottomEnd = 30.dp)
-                ) {
-                     Row(modifier = Modifier.padding(4.dp)) {
-                        Icon(imageVector = Icons.Filled.Movie, contentDescription = "Movie Icon")
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(text = "Watch Trailer")
-                    }
+            }
+            // watch trailer 버튼
+            Card(
+                onClick = {/* TODO */ },
+                colors = CardDefaults.cardColors(
+                    containerColor = Color.White,
+                    contentColor = primaryLightHighContrast
+                ),
+                modifier = Modifier.weight(1f),
+                shape = RoundedCornerShape(topEnd = 30.dp, bottomEnd = 30.dp)
+            ) {
+                Row(modifier = Modifier.padding(4.dp)) {
+                    Icon(imageVector = Icons.Filled.Movie, contentDescription = "Movie Icon")
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(text = "Watch Trailer")
                 }
             }
         }
