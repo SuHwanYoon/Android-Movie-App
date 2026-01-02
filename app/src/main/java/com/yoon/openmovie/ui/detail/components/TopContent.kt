@@ -97,9 +97,9 @@ private fun MovieDetailComponent(
     rating: Double,
     releaseDate: String
 ) {
-    // 수직으로 UI요소를 정렬할 목적의 Column 컴포저블
-    Column(modifier) {
-        MovieCard(modifier = Modifier.padding(horizontal = defaultPadding)) {
+    // 포스터 하단에 UI요소를 위치시킬 목적의 Box 컴포저블
+    Box(modifier.fillMaxSize()) {
+        MovieCard(modifier = Modifier.align(Alignment.BottomStart).padding(horizontal = defaultPadding).padding(bottom = 60.dp)) {
             // 외부 Row 컴포저블(Main Row) : 별점 영역과 출시 날짜 영역 전체를 묶음
             Row(
                 horizontalArrangement = Arrangement.Center,
@@ -128,11 +128,11 @@ private fun MovieDetailComponent(
                     maxLines = 1
                 )
             }
-            // Watch Now 버튼 + Watch Trailer 버튼을 나타낼 Row 컴포저블
         }
+        // Watch Now 버튼 + Watch Trailer 버튼을 나타낼 Row 컴포저블
         Row(
             modifier = Modifier
-                .fillMaxSize()
+                .align(Alignment.BottomCenter)
                 .padding(horizontal = defaultPadding)
         ) {
             // watch now 버튼
