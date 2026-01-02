@@ -87,7 +87,7 @@ class DetailViewModel @Inject constructor(
                 _detailState.update { it.copy(isMovieLoading = true, error = null) }
             }
         ) { movies ->
-            _detailState.update { it.copy(isLoading = false, error = null, movies = movies) }
+            _detailState.update { it.copy(isMovieLoading = false, error = null, movies = movies) }
         }
     }
 }
