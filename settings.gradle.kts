@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "feelMovie"
+rootProject.name = "openMovie"
 include(":app")
  
